@@ -1,0 +1,38 @@
+extends ../layouts/main
+
+block title 
+    = proyecto.name 
+
+block content
+    .d-flex.justify-content-between.align-items-center.mb-3
+        h4.mb-3= proyecto.name
+        .d-flex.align-items-center
+            a(href=`/proyectos/${proyecto.url}/edit` class="btn btn-info mx-2") Editar        
+            button(class="btn btn-danger" id="btnEliminar" data-proyecto-id=proyecto.id) Eliminar        
+    
+    .card 
+        .card-body
+            form(action=`/proyectos/${proyecto.id}/tareas` method="POST")
+                .form-group.mb-3
+                    label(for="name") Nombre de la Tarea
+                    input#name.form-control(type="text" name="name")
+                    input(type="hidden", name="url" value=proyecto.url)
+                
+                .mt-2 
+                    button(class="btn btn-primary") Guardar
+            h6.mt-4 Tareas
+            if tareas.length > 0
+                .mt-4.list-group.d-flex.justify-content-between
+                    each tarea in tareas
+                        label.list-group-item.d-flex.justify-content-between.align-items-center 
+                            span= tarea.name
+                            .d-flex.align-items-center
+                                button(class="btn")
+                                    svg(class=`w-6 h-6 ${tarea.estado ? 'tarea-completada' : ''}` width="23px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg")
+                                        path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z")
+    
+                                button(class="btn")
+                                    svg(class=`w-6 h-6 ${tarea.estado ? 'tarea-completada' : ''}` fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20px" xmlns="http://www.w3.org/2000/svg")
+                                        path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16")
+            else 
+                small No hay tareas

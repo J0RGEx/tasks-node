@@ -1,0 +1,15 @@
+extends ../layouts/main
+
+block title 
+    = proyecto.name 
+
+block content 
+    h4.mb-3 Editar #{proyecto.name}
+    
+    form(action=`/proyectos/update/${proyecto.id}` method="POST" )
+        .form-group.mb-3 
+            label(for="name") Nombre del proyecto
+            input#name.form-control(type="text" name="name" value=`${proyecto.name}`)
+
+        div 
+            button.btn.btn-primary Actualizar proyecto
