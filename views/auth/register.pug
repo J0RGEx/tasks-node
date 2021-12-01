@@ -1,0 +1,16 @@
+extends ../layouts/auth
+
+block title 
+    | Registro 
+
+block content
+    h5.card-title Crear cuenta
+    form(action="#") 
+        .form-group.mb-2
+            label(for="email") 
+            input.form-control#email(type="email" placeholder="user@email.com")
+        .form-group.mb-4 
+            label(for="password") 
+            input.form-control#password(type="password")
+        div
+            button.btn.btn-primary.btn-block Crear cuenta

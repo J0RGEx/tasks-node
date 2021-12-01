@@ -4,6 +4,7 @@ const router = express.Router();
 
 const proyectos = require('../controllers/proyectoscontroller');
 const tareas =  require('../controllers/tareascontroller');
+const auth = require('../controllers/authController');
 
 module.exports = function(){
 
@@ -19,5 +20,9 @@ module.exports = function(){
 
     router.post('/proyectos/:id/tareas', body('name').not().isEmpty().trim().escape(), tareas.store);
 
+
+    // auth routes
+
+    router.get('/auth/register', auth.register);
     return router;
 }
